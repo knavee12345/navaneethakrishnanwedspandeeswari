@@ -332,23 +332,13 @@ function setupInvitationCover() {
 
 function openInvitation() {
 
-  // Play music first
   if (bgMusic) {
     bgMusic.muted = false;
-    bgMusic.volume = 0.3;
+    bgMusic.volume = 0.5;
 
-    bgMusic.play()
-      .then(() => {
-        console.log("Music started");
-
-        // Fullscreen after music starts
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => {});
-        }
-      })
-      .catch((err) => {
-        console.error("Music failed:", err);
-      });
+    bgMusic.play().catch((err) => {
+      console.error("Music failed:", err);
+    });
   }
 
   cover.classList.add("is-opening");
