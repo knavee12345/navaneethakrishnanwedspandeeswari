@@ -41,8 +41,186 @@ body {
   background: linear-gradient(180deg, #f8f6f2 0%, #efebe4 45%, #e7e3dd 100%);
 }
 
+body:not(.invitation-opened) {
+  overflow: hidden;
+}
+
 body.nav-open {
   overflow: hidden;
+}
+
+.invite-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  perspective: 1600px;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(15, 40, 24, 0.96), rgba(15, 40, 24, 0.85));
+  color: var(--white);
+  backdrop-filter: blur(14px);
+  transition: opacity 360ms ease, visibility 360ms ease;
+}
+
+.invite-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 35%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08) 2px, transparent 2px, transparent 10px);
+  pointer-events: none;
+}
+
+.invite-cover[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.invite-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 560px);
+  border-radius: 32px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 36px 90px rgba(8, 19, 20, 0.4);
+  transform-style: preserve-3d;
+}
+
+.invite-card::before {
+  content: "";
+  position: absolute;
+  inset: 50% 24px auto 24px;
+  height: 1px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.18);
+  pointer-events: none;
+}
+
+.invite-card__panel {
+  position: relative;
+  min-height: 220px;
+  display: grid;
+  gap: 1rem;
+  place-items: center;
+  padding: 2.4rem 2.2rem;
+  background: rgba(255, 255, 255, 0.08);
+  transform-origin: center;
+}
+
+.invite-card__panel--top,
+.invite-card__panel--bottom {
+  transition: transform 0.88s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.38s ease, filter 0.38s ease;
+}
+
+.invite-card__panel--top {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  transform-origin: bottom center;
+}
+
+.invite-card__panel--bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  transform-origin: top center;
+}
+
+.invite-cover.is-opening .invite-card__panel--top {
+  transform: rotateX(-88deg) translateY(-28px);
+  opacity: 0.12;
+  filter: blur(0.8px);
+}
+
+.invite-cover.is-opening .invite-card__panel--bottom {
+  transform: rotateX(88deg) translateY(28px);
+  opacity: 0.12;
+  filter: blur(0.8px);
+}
+
+.invite-cover.is-opening .invite-card {
+  transform: translateZ(0);
+}
+
+.invite-cover.is-opening {
+  background: rgba(15, 40, 24, 0.18);
+}
+
+.invite-card h2 {
+  margin: 0;
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  line-height: 0.92;
+  color: var(--white);
+}
+
+.invite-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.invite-open-btn {
+  min-width: 250px;
+}
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 24%),
+    linear-gradient(180deg, rgba(15, 40, 24, 0.96), rgba(15, 40, 24, 0.85));
+  color: var(--white);
+  backdrop-filter: blur(14px);
+  transition: opacity 360ms ease, visibility 360ms ease;
+}
+
+.invite-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08), transparent 35%),
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08) 2px, transparent 2px, transparent 10px);
+  pointer-events: none;
+}
+
+.invite-cover[aria-hidden="true"] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.invite-card {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  width: min(100%, 100%);
+  padding: 2.4rem 2.2rem;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 36px 90px rgba(8, 19, 20, 0.4);
+  text-align: center;
+}
+
+.invite-card h2 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2.8rem, 5vw, 4.6rem);
+  line-height: 0.92;
+  color: var(--white);
+}
+
+.invite-card p {
+  margin: 0 0 1.9rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.invite-open-btn {
+  min-width: 250px;
 }
 
 body::before {

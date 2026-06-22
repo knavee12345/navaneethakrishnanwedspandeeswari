@@ -320,6 +320,36 @@ function setupPointer() {
   );
 }
 
+function setupInvitationCover() {
+  const cover = document.querySelector(".invite-cover");
+  const button = document.querySelector(".invite-open-btn");
+
+  if (!cover || !button) {
+    return;
+  }
+
+  function openInvitation() {
+    cover.classList.add("is-opening");
+    button.disabled = true;
+    button.blur();
+
+    setTimeout(() => {
+      document.body.classList.add("invitation-opened");
+      cover.setAttribute("aria-hidden", "true");
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      cover.classList.remove("is-opening");
+    }, 820);
+  }
+
+  button.addEventListener("click", openInvitation);
+  button.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openInvitation();
+    }
+  });
+}
+
 function setupMomentGallery() {
   const stage = document.querySelector(".moments-stage");
   const feature = document.querySelector(".moment-feature");
@@ -635,6 +665,7 @@ setupCountdown();
 setupNavigation();
 setupRsvp();
 setupPointer();
+setupInvitationCover();
 setupMomentGallery();
 setupCelebration();
 setupDateScratch();

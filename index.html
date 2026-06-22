@@ -17,6 +17,21 @@
     <link rel="stylesheet" href="styles.css?v=20260823-photos" />
   </head>
   <body>
+    <div class="invite-cover" role="dialog" aria-modal="true" aria-labelledby="invite-title" aria-describedby="invite-copy">
+      <div class="invite-card" data-open-cover>
+        <div class="invite-card__panel invite-card__panel--top">
+          <p class="eyebrow">A special invitation</p>
+          <h2 id="invite-title">Tap to open</h2>
+        </div>
+        <div class="invite-card__panel invite-card__panel--bottom">
+          <p id="invite-copy">
+            Your celebration awaits. Tap the button to enter the wedding invitation.
+          </p>
+          <button class="button button-primary invite-open-btn" type="button">Open invitation</button>
+        </div>
+      </div>
+    </div>
+
     <div class="page-aura" aria-hidden="true"></div>
     <canvas id="fx-canvas" aria-hidden="true"></canvas>
 
@@ -143,17 +158,6 @@
               data-title="The morning looked brighter with them"
             >
               <img src="assets/couple/lake-smiles.jpg" alt="" loading="lazy" decoding="async" />
-            </button>
-            <button
-              class="moment-thumb"
-              type="button"
-              aria-label="Show green embrace photo"
-              data-image="assets/couple/green-embrace.jpg"
-              data-alt="Navaneethakrishnan and Pandeeswari close together in greenery"
-              data-kicker="Green Embrace"
-              data-title="Close enough for the world to blur"
-            >
-              <img src="assets/couple/green-embrace.jpg" alt="" loading="lazy" decoding="async" />
             </button>
           </div>
         </div>
