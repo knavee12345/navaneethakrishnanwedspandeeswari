@@ -49,6 +49,10 @@ body.nav-open {
   overflow: hidden;
 }
 
+#invite-title {
+  cursor: pointer;
+}
+
 .invite-cover {
   position: fixed;
   inset: 0;

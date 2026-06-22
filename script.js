@@ -330,36 +330,43 @@ function setupInvitationCover() {
     return;
   }
 
-  function openInvitation() {
-    // Start background music
-    if (bgMusic) {
-      bgMusic.volume = 0.5;
+function openInvitation() {
 
-      const playPromise = bgMusic.play();
+  // Play music first
+  if (bgMusic) {
+    bgMusic.muted = false;
+    bgMusic.volume = 0.3;
 
-      if (playPromise !== undefined) {
-        playPromise.catch((error) => {
-          console.log("Audio playback failed:", error);
-        });
-      }
-    }
+    bgMusic.play()
+      .then(() => {
+        console.log("Music started");
 
-    // Existing invitation opening animation
-    cover.classList.add("is-opening");
-    button.disabled = true;
-    button.blur();
-
-    setTimeout(() => {
-      document.body.classList.add("invitation-opened");
-      cover.setAttribute("aria-hidden", "true");
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "instant",
+        // Fullscreen after music starts
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        }
+      })
+      .catch((err) => {
+        console.error("Music failed:", err);
       });
-      cover.classList.remove("is-opening");
-    }, 820);
   }
+
+  cover.classList.add("is-opening");
+  button.disabled = true;
+  button.blur();
+
+  setTimeout(() => {
+    document.body.classList.add("invitation-opened");
+    cover.setAttribute("aria-hidden", "true");
+
+    window.scrollTo({
+      top: 0,
+      left: 0
+    });
+
+    cover.classList.remove("is-opening");
+  }, 820);
+}
 
   // Open via button
   button.addEventListener("click", openInvitation);
