@@ -323,12 +323,28 @@ function setupPointer() {
 function setupInvitationCover() {
   const cover = document.querySelector(".invite-cover");
   const button = document.querySelector(".invite-open-btn");
+  const title = document.querySelector("#invite-title");
+  const bgMusic = document.querySelector("#bgMusic");
 
   if (!cover || !button) {
     return;
   }
 
   function openInvitation() {
+    // Start background music
+    if (bgMusic) {
+      bgMusic.volume = 0.5;
+
+      const playPromise = bgMusic.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.log("Audio playback failed:", error);
+        });
+      }
+    }
+
+    // Existing invitation opening animation
     cover.classList.add("is-opening");
     button.disabled = true;
     button.blur();
@@ -336,12 +352,32 @@ function setupInvitationCover() {
     setTimeout(() => {
       document.body.classList.add("invitation-opened");
       cover.setAttribute("aria-hidden", "true");
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
       cover.classList.remove("is-opening");
     }, 820);
   }
 
+  // Open via button
   button.addEventListener("click", openInvitation);
+
+  // Open via title text
+  if (title) {
+    title.style.cursor = "pointer";
+
+    title.addEventListener("click", openInvitation);
+
+    title.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openInvitation();
+      }
+    });
+  }
+
   button.addEventListener("keydown", (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
