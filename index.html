@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navaneethakrishnan & Pandeeswari | Wedding Invitation</title>
+    <meta
+      name="description"
+      content="A cinematic wedding invitation website for Navaneethakrishnan and Pandeeswari."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Great+Vibes&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260823-photos" />
+  </head>
+  <body>
+    <div class="page-aura" aria-hidden="true"></div>
+    <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+    <header class="site-header" data-reveal>
+      <a class="brand" href="#home" aria-label="Navaneethakrishnan and Pandeeswari home">
+        <span>N</span>
+        <span>&</span>
+        <span>P</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Open navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="#moments">Moments</a>
+        <a href="#story">Story</a>
+        <a href="#events">Events</a>
+        <a href="#venue">Venue</a>
+        <a href="#rsvp">RSVP</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero section-band">
+        <div class="hero-orbit" aria-hidden="true">
+          <span class="ring ring-one"></span>
+          <span class="ring ring-two"></span>
+          <span class="ring ring-three"></span>
+          <span class="spark spark-one"></span>
+          <span class="spark spark-two"></span>
+          <span class="spark spark-three"></span>
+        </div>
+
+        <div class="hero-photo-vfx" aria-hidden="true">
+          <img src="assets/couple/misty-hills.jpg" alt="" />
+          <span class="hero-photo-glow"></span>
+          <span class="hero-photo-scan"></span>
+        </div>
+
+        <div class="hero-content" data-reveal>
+          <p class="eyebrow">Together with their families</p>
+          <h1>
+            <span class="script-name">Navaneethakrishnan</span>
+            <span class="ampersand">&</span>
+            <span class="script-name">Pandeeswari</span>
+          </h1>
+          <p class="hero-copy">
+            Invite you to celebrate a night of vows, music, blessings, and a
+            thousand little moments of joy.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary magnet" href="#rsvp">Send RSVP</a>
+            <a class="button button-ghost magnet" href="#events">View Events</a>
+          </div>
+        </div>
+
+        <div class="date-card tilt-card" data-reveal>
+          <div class="date-card-content">
+            <p class="date-kicker">Save the date</p>
+            <p class="date-number">23</p>
+            <p class="date-month">August 2026</p>
+            <p class="date-location">Solai Mahal, Veerapandi, Theni</p>
+          </div>
+          <canvas id="date-scratch-canvas" class="date-scratch-canvas" aria-label="Scratch to reveal wedding date"></canvas>
+          <p class="date-scratch-hint">Scratch here to reveal</p>
+        </div>
+
+        <a class="scroll-cue" href="#moments" aria-label="Scroll to moments">
+          <span></span>
+        </a>
+      </section>
+
+      <section id="moments" class="moments section-band">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Captured moments</p>
+          <h2>A love story in motion.</h2>
+        </div>
+
+        <div class="moments-stage" data-reveal>
+          <figure class="moment-feature tilt-card">
+            <img
+              id="moment-hero"
+              src="assets/couple/misty-hills.jpg"
+              alt="Navaneethakrishnan and Pandeeswari smiling together in misty hills"
+            />
+            <figcaption>
+              <span id="moment-kicker">Misty Hills</span>
+              <strong id="moment-title">Where every view became a memory</strong>
+            </figcaption>
+          </figure>
+
+          <div class="moment-copy">
+            <p class="eyebrow">Photo gallery</p>
+            <h3>Swipe through their favourite little forever moments.</h3>
+            <p>
+              Soft mountain light, lake-side smiles, green valleys, and the kind
+              of joy that already feels like home.
+            </p>
+          </div>
+
+          <div class="moment-reel" aria-label="Couple photo gallery">
+            <button
+              class="moment-thumb is-active"
+              type="button"
+              aria-label="Show misty hills photo"
+              data-image="assets/couple/misty-hills.jpg"
+              data-alt="Navaneethakrishnan and Pandeeswari sitting together in misty hills"
+              data-kicker="Misty Hills"
+              data-title="Where every view became a memory"
+            >
+              <img src="assets/couple/misty-hills.jpg" alt="" loading="lazy" decoding="async" />
+            </button>
+            <button
+              class="moment-thumb"
+              type="button"
+              aria-label="Show lake smiles photo"
+              data-image="assets/couple/lake-smiles.jpg"
+              data-alt="Navaneethakrishnan and Pandeeswari smiling together by the lake"
+              data-kicker="Lake Smiles"
+              data-title="The morning looked brighter with them"
+            >
+              <img src="assets/couple/lake-smiles.jpg" alt="" loading="lazy" decoding="async" />
+            </button>
+            <button
+              class="moment-thumb"
+              type="button"
+              aria-label="Show green embrace photo"
+              data-image="assets/couple/green-embrace.jpg"
+              data-alt="Navaneethakrishnan and Pandeeswari close together in greenery"
+              data-kicker="Green Embrace"
+              data-title="Close enough for the world to blur"
+            >
+              <img src="assets/couple/green-embrace.jpg" alt="" loading="lazy" decoding="async" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="story" class="story section-band">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Our story</p>
+          <h2>Two paths, one promise.</h2>
+        </div>
+
+        <div class="story-grid">
+          <article class="glass-panel tilt-card" data-reveal>
+            <span class="panel-number">01</span>
+            <h3>The First Hello</h3>
+            <p>
+              A quiet conversation became the kind of memory that refuses to
+              fade. The world kept moving, but something had already begun.
+            </p>
+          </article>
+
+          <article class="glass-panel tilt-card" data-reveal>
+            <span class="panel-number">02</span>
+            <h3>The Yes</h3>
+            <p>
+              Under a sky full of lights, a simple question found its answer.
+              Family smiled, friends cheered, and forever became real.
+            </p>
+          </article>
+
+          <article class="glass-panel tilt-card" data-reveal>
+            <span class="panel-number">03</span>
+            <h3>The Celebration</h3>
+            <p>
+              Now we gather the people we love most for a celebration wrapped
+              in music, color, blessings, and laughter.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="events" class="events section-band">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow">Wedding events</p>
+          <h2>Celebrate every beautiful chapter.</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="event-card" data-reveal>
+            <div class="event-time">
+              <span>Aug 22</span>
+              <strong>4:00 PM</strong>
+            </div>
+            <div>
+              <h3>Engagement & Reception</h3>
+              <p>Join us for the engagement ceremony, blessings, dinner, and celebration.</p>
+            </div>
+          </article>
+
+          <article class="event-card" data-reveal>
+            <div class="event-time">
+              <span>Aug 23</span>
+              <strong>9:00 AM</strong>
+            </div>
+            <div>
+              <h3>Marriage Ceremony</h3>
+              <p>The sacred wedding rituals and blessings begin in the morning.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="countdown-section section-band" aria-label="Countdown">
+        <div class="countdown-shell" data-reveal>
+          <p class="eyebrow">The countdown begins</p>
+          <div class="countdown" data-date="2026-08-23T09:00:00+05:30">
+            <div>
+              <strong id="days">000</strong>
+              <span>Days</span>
+            </div>
+            <div>
+              <strong id="hours">00</strong>
+              <span>Hours</span>
+            </div>
+            <div>
+              <strong id="minutes">00</strong>
+              <span>Minutes</span>
+            </div>
+            <div>
+              <strong id="seconds">00</strong>
+              <span>Seconds</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="venue" class="venue section-band">
+        <div class="venue-visual" data-reveal aria-hidden="true">
+          <div class="palace">
+            <span class="dome dome-left"></span>
+            <span class="dome dome-center"></span>
+            <span class="dome dome-right"></span>
+            <span class="pillar pillar-one"></span>
+            <span class="pillar pillar-two"></span>
+            <span class="pillar pillar-three"></span>
+            <span class="pillar pillar-four"></span>
+          </div>
+        </div>
+
+        <div class="venue-copy" data-reveal>
+          <p class="eyebrow">Venue</p>
+          <h2>Solai Mahal</h2>
+          <p>
+            Solai Mahal, Veerapandi, Theni. Please join us with your family
+            for the engagement, reception, and marriage celebrations.
+          </p>
+          <div class="venue-meta">
+            <span>Dress code: Festive elegant</span>
+            <span>Engagement & Reception: Aug 22 at 4:00 PM</span>
+            <span>Marriage: Aug 23 from 9:00 AM</span>
+          </div>
+          <a class="button button-primary magnet" href="https://maps.app.goo.gl/CbwffYNHXpAgiGdS9" target="_blank" rel="noreferrer">
+            Open Map
+          </a>
+        </div>
+      </section>
+
+      <section id="rsvp" class="rsvp section-band">
+        <div class="rsvp-card" data-reveal>
+          <p class="eyebrow">RSVP</p>
+          <h2>We saved you a seat.</h2>
+          <p>
+            Kindly respond by August 15, 2026 so we can make every detail feel
+            thoughtful.
+          </p>
+
+          <form class="rsvp-form">
+            <label>
+              <span>Your name</span>
+              <input type="text" name="name" placeholder="Enter your name" required />
+            </label>
+
+            <label>
+              <span>Will you attend?</span>
+              <select name="attendance" required>
+                <option value="">Choose an option</option>
+                <option value="yes">Joyfully attending</option>
+                <option value="no">Sending love from afar</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Number of guests</span>
+              <input type="number" name="guests" min="1" max="6" value="1" />
+            </label>
+
+            <label>
+              <span>Message</span>
+              <textarea name="message" rows="4" placeholder="Leave a blessing or note"></textarea>
+            </label>
+
+            <button class="button button-primary magnet" type="submit">Submit RSVP</button>
+          </form>
+
+          <p class="form-note" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Made with love for Navaneethakrishnan and Pandeeswari.</p>
+      <button class="celebrate-button magnet" type="button">Celebrate</button>
+    </footer>
+
+    <script src="script.js?v=20260823-photos2"></script>
+  </body>
+</html>
