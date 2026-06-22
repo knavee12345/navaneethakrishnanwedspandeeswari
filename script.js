@@ -326,61 +326,69 @@ function setupInvitationCover() {
   const title = document.querySelector("#invite-title");
   const bgMusic = document.querySelector("#bgMusic");
 
-  if (!cover || !button) {
+  if (!cover || !button || !bgMusic) {
     return;
   }
 
-function openInvitation() {
+  bgMusic.setAttribute("playsinline", "");
+  bgMusic.setAttribute("webkit-playsinline", "");
+  bgMusic.volume = 1;
+  bgMusic.muted = false;
 
-  if (bgMusic) {
-    bgMusic.muted = false;
-    bgMusic.volume = 0.5;
+  function openInvitation(event) {
+    if (event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
 
-    bgMusic.play().catch((err) => {
-      console.error("Music failed:", err);
-    });
+    bgMusic.play()
+      .then(() => {
+        console.log("Music started");
+
+        cover.classList.add("is-opening");
+        button.disabled = true;
+
+        setTimeout(() => {
+          document.body.classList.add("invitation-opened");
+          cover.setAttribute("aria-hidden", "true");
+
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth"
+          });
+
+          cover.classList.remove("is-opening");
+        }, 820);
+      })
+      .catch((err) => {
+        console.error("Audio failed:", err);
+
+        cover.classList.add("is-opening");
+
+        setTimeout(() => {
+          document.body.classList.add("invitation-opened");
+          cover.setAttribute("aria-hidden", "true");
+          cover.classList.remove("is-opening");
+        }, 820);
+      });
   }
 
-  cover.classList.add("is-opening");
-  button.disabled = true;
-  button.blur();
-
-  setTimeout(() => {
-    document.body.classList.add("invitation-opened");
-    cover.setAttribute("aria-hidden", "true");
-
-    window.scrollTo({
-      top: 0,
-      left: 0
-    });
-
-    cover.classList.remove("is-opening");
-  }, 820);
-}
-
-  // Open via button
+  button.addEventListener("touchend", openInvitation);
   button.addEventListener("click", openInvitation);
 
-  // Open via title text
   if (title) {
     title.style.cursor = "pointer";
 
+    title.addEventListener("touchend", openInvitation);
     title.addEventListener("click", openInvitation);
 
     title.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        openInvitation();
+        openInvitation(event);
       }
     });
   }
-
-  button.addEventListener("keydown", (event) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      openInvitation();
-    }
-  });
 }
 
 function setupMomentGallery() {
