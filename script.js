@@ -6,7 +6,7 @@ const petals = [];
 const bursts = [];
 let width = 0;
 let height = 0;
-let pixelRatio = 1;
+let pixelRatio = 0.001;
 
 function random(min, max) {
   return Math.random() * (max - min) + min;
@@ -27,9 +27,9 @@ function makePetal(initial = false) {
   return {
     x: random(-80, width + 80),
     y: initial ? random(-height, height) : random(-120, -20),
-    size: random(8, 20),
-    speed: random(0.4, 1.3),
-    drift: random(-0.5, 0.8),
+    size: random(1, 30),
+    speed: random(0.1, 1.5),
+    drift: random(-0.8, 0.8),
     rotate: random(0, Math.PI * 2),
     spin: random(-0.03, 0.03),
     alpha: random(0.4, 0.85),
@@ -355,7 +355,7 @@ function setupInvitationCover() {
         console.log("Music started");
 
         cover.classList.add("is-opening");
-        button.disabled = true;
+        button.disabled = false;
 
         setTimeout(() => {
           document.body.classList.add("invitation-opened");
@@ -632,7 +632,7 @@ function setupDateScratch() {
     
     scratchAmount = transparent / (data.length / 4);
     
-    if (scratchAmount > 0.5) {
+    if (scratchAmount > 0.4) {
       dateCard.classList.add("is-revealed");
       if (!reduceMotion) {
         const rect = dateCard.getBoundingClientRect();
@@ -646,7 +646,7 @@ function setupDateScratch() {
     const rect = scratchCanvas.getBoundingClientRect();
     const x = clientX - rect.left;
     const y = clientY - rect.top;
-    const radius = 32;
+    const radius = 45;
 
     ctx.save();
     ctx.globalCompositeOperation = "destination-out";
