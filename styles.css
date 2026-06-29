@@ -167,7 +167,6 @@ body.nav-open {
 
 .invite-open-btn {
   min-width: 250px;
-}
   position: fixed;
   inset: 0;
   z-index: 60;
