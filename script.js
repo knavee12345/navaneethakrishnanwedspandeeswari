@@ -339,21 +339,21 @@ function setupInvitationCover() {
     return;
   }
 
-  bgMusic.setAttribute("playsinline", "");
-  bgMusic.setAttribute("webkit-playsinline", "");
-  bgMusic.volume = 1;
-  bgMusic.muted = false;
+bgMusic.setAttribute("playsinline", "");
+bgMusic.setAttribute("webkit-playsinline", "");
+bgMusic.preload = "none";
+bgMusic.volume = 1;
+bgMusic.muted = false;
 
- function openInvitation(event) {
+function openInvitation(event) {
 
     if (event) {
         event.preventDefault();
         event.stopPropagation();
     }
 
-    // Open invitation immediately
     cover.classList.add("is-opening");
-    button.disabled = false;
+    button.disabled = true;
 
     setTimeout(() => {
 
@@ -369,19 +369,20 @@ function setupInvitationCover() {
             behavior: "smooth"
         });
 
+        // Wait a little after opening, then start music
+        setTimeout(() => {
+
+            bgMusic.play()
+                .then(() => {
+                    console.log("Music started");
+                })
+                .catch((err) => {
+                    console.error("Music failed:", err);
+                });
+
+        }, 200);
+
     }, 820);
-
-    // Play music separately
-    bgMusic.muted = false;
-    bgMusic.volume = 1;
-
-    bgMusic.play()
-        .then(() => {
-            console.log("Music started");
-        })
-        .catch((err) => {
-            console.log("Music couldn't start:", err);
-        });
 
 }
 
