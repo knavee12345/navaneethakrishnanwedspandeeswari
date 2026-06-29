@@ -385,12 +385,20 @@ function setupInvitationCover() {
 
   button.addEventListener("touchend", openInvitation);
   button.addEventListener("click", openInvitation);
+  button.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    openInvitation(e);
+  },{passive:false});
 
   if (title) {
     title.style.cursor = "pointer";
 
     title.addEventListener("touchend", openInvitation);
     title.addEventListener("click", openInvitation);
+    title.addEventListener("touchstart", function(e){
+    e.preventDefault();
+    openInvitation(e);
+    },{passive:false});
 
     title.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
