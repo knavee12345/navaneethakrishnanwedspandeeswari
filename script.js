@@ -241,30 +241,11 @@ function setupNavigation() {
 function setupRsvp() {
   const form = document.querySelector(".rsvp-form");
   const note = document.querySelector(".form-note");
-  const storageKey = "weddingRsvps";
 
   if (!form || !note) {
     return;
   }
 
-  function readRsvps() {
-    try {
-      const stored = window.localStorage.getItem(storageKey);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  function writeRsvps(rsvps) {
-    try {
-      window.localStorage.setItem(storageKey, JSON.stringify(rsvps));
-    } catch {
-      // ignore storage failures
-    }
-  }
-
-  const rsvps = readRsvps();
 
   function updateRsvpNote(message) {
     note.textContent = message || "Your RSVP is ready to submit.";
@@ -272,27 +253,55 @@ function setupRsvp() {
 
   updateRsvpNote();
 
-  form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const data = new FormData(form);
-    const name = String(data.get("name") || "Guest").trim() || "Guest";
-    const attendance = String(data.get("attendance") || "");
-    const guests = Number(data.get("guests") || 1);
-    const message = String(data.get("message") || "").trim();
 
-    rsvps.push({
-      name,
-      attendance,
-      guests,
-      message,
-      submittedAt: new Date().toISOString(),
-    });
+    const payload = {
+        name: data.get("name"),
+        attendance: data.get("attendance"),
+        guests: data.get("guests"),
+        message: data.get("message")
+    };
 
-    writeRsvps(rsvps);
-    updateRsvpNote(`Thank you, ${name}. Your RSVP has been captured.`);
-    form.reset();
-    makeBurst(window.innerWidth / 2, window.innerHeight * 0.72, 42);
-  });
+    try {
+        const formData = new FormData();
+        formData.append("name", payload.name);
+        formData.append("attendance", payload.attendance);
+        formData.append("guests", payload.guests);
+        formData.append("message", payload.message);
+
+        formData.append("token", "naveepandee2026");
+
+        const response = await fetch("https://script.google.com/macros/s/AKfycbyeWpTv0Zw0F3TcffNKHF6i3lcIITrgKoTXzCdAzqb1n3d7qeHFtbtNwIKseFiFFAdh/exec", {
+            method: "POST",
+            body: formData
+        });
+
+        const result = await response.json();
+
+        console.log(result);
+
+        if (!result.success) {
+            throw new Error(result.message);
+        }
+        note.textContent =
+            `Thank you, ${payload.name}! Your RSVP has been submitted.`;
+
+        form.reset();
+
+        makeBurst(
+            window.innerWidth / 2,
+            window.innerHeight * 0.72,
+            42
+        );
+
+    } catch (err) {
+        note.textContent =
+            "Unable to submit RSVP. Please try again.";
+    }
+});
 }
 
 function setupHeaderParallax() {

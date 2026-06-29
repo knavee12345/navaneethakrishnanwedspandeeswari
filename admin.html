@@ -1,246 +1,116 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RSVP Entries - Admin</title>
-    <link rel="stylesheet" href="styles.css" />
-    <style>
-      body {
-        background: #f6f3ee;
-      }
-      .admin-shell {
-        max-width: 980px;
-        margin: 60px auto;
-        padding: 24px;
-        background: rgba(255,255,255,0.96);
-        border-radius: 20px;
-        box-shadow: 0 24px 80px rgba(15, 40, 24, 0.08);
-      }
-      .admin-shell h1 {
-        margin: 0 0 18px;
-        font-family: Cinzel, serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        color: #1f3326;
-      }
-      .admin-note {
-        margin: 0 0 24px;
-        color: #5a6d5c;
-        font-size: 0.96rem;
-      }
-      .admin-form {
-        display: grid;
-        gap: 14px;
-        margin-bottom: 24px;
-      }
-      .admin-form label {
-        display: grid;
-        gap: 8px;
-        font-weight: 700;
-        color: #324336;
-      }
-      .admin-form input {
-        width: 100%;
-        padding: 12px 14px;
-        border: 1px solid rgba(74, 124, 99, 0.14);
-        border-radius: 12px;
-        background: #fff;
-        color: #233127;
-      }
-      .entry-list {
-        display: grid;
-        gap: 18px;
-      }
-      .entry-card {
-        padding: 20px;
-        border-radius: 18px;
-        background: #fcfbf9;
-        border: 1px solid rgba(74, 124, 99, 0.12);
-      }
-      .entry-card span {
-        display: inline-flex;
-        gap: 6px;
-        align-items: center;
-        font-size: 0.86rem;
-        color: #637662;
-      }
-      .entry-card strong {
-        display: block;
-        margin: 0.35rem 0 8px;
-        font-size: 1.05rem;
-        color: #233127;
-      }
-      .entry-card p {
-        margin: 4px 0;
-        color: #4f5f52;
-      }
-      .stats-grid {
-        display: grid;
-        gap: 16px;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        margin-bottom: 24px;
-      }
-      .stat-card {
-        padding: 18px;
-        border-radius: 18px;
-        background: #f7f5f1;
-        border: 1px solid rgba(74, 124, 99, 0.12);
-      }
-      .stat-card strong {
-        display: block;
-        font-size: 1.35rem;
-        color: #1f3326;
-        margin-bottom: 6px;
-      }
-      .stat-card span {
-        color: #5a6d5c;
-        font-size: 0.92rem;
-      }
-      .empty-state {
-        padding: 40px;
-        border-radius: 18px;
-        background: #eff2ee;
-        color: #4d5e53;
-        text-align: center;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="admin-shell">
-      <h1>RSVP Entries</h1>
-      <p class="admin-note">Enter the admin password to view saved RSVP submissions. This page is view-only and uses local browser storage.</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding RSVP Dashboard</title>
 
-      <div id="stats" class="stats-grid" aria-live="polite"></div>
+    <link rel="stylesheet" href="admin.css">
 
-      <form id="admin-form" class="admin-form">
-        <label>
-          Admin password
-          <input type="password" id="admin-password" autocomplete="current-password" />
-        </label>
-        <button type="submit" class="button button-primary">View entries</button>
-      </form>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 
-      <div style="display:flex;gap:12px;align-items:center;margin-bottom:14px;">
-        <button id="reset-entries" type="button" class="button button-ghost">Reset entries</button>
-        <div style="color:#5a6d5c;font-size:0.95rem;">(Requires admin password confirmation)</div>
-      </div>
+<body>
 
-      <div id="entries" class="entry-list"></div>
-    </div>
+<div class="container">
 
-    <script>
-      const adminForm = document.getElementById('admin-form');
-      const passwordInput = document.getElementById('admin-password');
-      const statsEl = document.getElementById('stats');
-      const entriesEl = document.getElementById('entries');
-      const resetBtn = document.getElementById('reset-entries');
-      const storageKey = 'weddingRsvps';
-      const adminPassword = 'naveepandee2026';
+    <header>
+        <h1>Wedding RSVP Dashboard</h1>
+        <p>Navaneethakrishnan ❤️ Pandeeswari</p>
+    </header>
 
-      function formatDate(value) {
-        return new Intl.DateTimeFormat('en-US', {
-          dateStyle: 'medium',
-          timeStyle: 'short',
-        }).format(new Date(value));
-      }
+    <section class="cards">
 
-      function loadRsvps() {
-        try {
-          const raw = window.localStorage.getItem(storageKey);
-          return raw ? JSON.parse(raw) : [];
-        } catch {
-          return [];
-        }
-      }
+        <div class="card">
+            <h2 id="totalResponses">0</h2>
+            <p>Total Responses</p>
+        </div>
 
-      function renderEntries(entries) {
-        if (!entries.length) {
-          statsEl.innerHTML = '';
-          entriesEl.innerHTML = '<div class="empty-state">No RSVP entries have been submitted yet.</div>';
-          return;
-        }
+        <div class="card accepted">
+            <h2 id="accepted">0</h2>
+            <p>Accepted</p>
+        </div>
 
-        renderSummary(entries);
+        <div class="card declined">
+            <h2 id="declined">0</h2>
+            <p>Declined</p>
+        </div>
 
-        entriesEl.innerHTML = entries.map(entry => `
-          <article class="entry-card">
-            <strong>${entry.name || 'Guest'}</strong>
-            <span>Submitted: ${formatDate(entry.submittedAt)}</span>
-            <p><strong>Attendance:</strong> ${entry.attendance || 'Not specified'}</p>
-            <p><strong>Guests:</strong> ${entry.guests || 1}</p>
-            <p><strong>Message:</strong> ${entry.message || 'None'}</p>
-          </article>
-        `).join('');
-      }
+        <div class="card guests">
+            <h2 id="guestCount">0</h2>
+            <p>Total Guests</p>
+        </div>
 
-      function renderSummary(entries) {
-        const totals = {
-          total: entries.length,
-          yes: 0,
-          no: 0,
-          unspecified: 0,
-          guests: 0,
-        };
+    </section>
 
-        entries.forEach(entry => {
-          const attendance = String(entry.attendance || '').toLowerCase();
-          if (attendance === 'yes') totals.yes += 1;
-          else if (attendance === 'no') totals.no += 1;
-          else totals.unspecified += 1;
-          totals.guests += Number(entry.guests || 0);
-        });
+    <section class="chart">
 
-        statsEl.innerHTML = `
-          <div class="stat-card">
-            <strong>${totals.total}</strong>
-            <span>Total RSVPs</span>
-          </div>
-          <div class="stat-card">
-            <strong>${totals.yes}</strong>
-            <span>Attending</span>
-          </div>
-          <div class="stat-card">
-            <strong>${totals.no}</strong>
-            <span>Not attending</span>
-          </div>
-          <div class="stat-card">
-            <strong>${totals.guests}</strong>
-            <span>Total guests</span>
-          </div>
-        `;
-      }
+        <canvas id="rsvpChart"></canvas>
 
-      adminForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        if (passwordInput.value !== adminPassword) {
-          statsEl.innerHTML = '';
-          entriesEl.innerHTML = '<div class="empty-state">Incorrect password. Please try again.</div>';
-          return;
-        }
+    </section>
 
-        const rsvps = loadRsvps();
-        renderEntries(rsvps);
-      });
+    <section class="search">
 
-      // Reset entries handler - requires password confirmation
-      resetBtn.addEventListener('click', () => {
-        const pwd = prompt('Enter admin password to reset all RSVP entries:');
-        if (pwd !== adminPassword) {
-          entriesEl.innerHTML = '<div class="empty-state">Password incorrect. Reset cancelled.</div>';
-          return;
-        }
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search guest..."
+        >
+        <p id="lastUpdated"></p>
 
-        if (!confirm('Are you sure you want to permanently delete all RSVP entries stored in this browser?')) {
-          return;
-        }
+        <button id="refreshBtn">
+            Refresh
+        </button>
 
-        try {
-          window.localStorage.removeItem(storageKey);
-        } catch (e) {}
+        <button id="downloadBtn">
+            Download CSV
+        </button>
 
-        statsEl.innerHTML = '';
-        entriesEl.innerHTML = '<div class="empty-state">All RSVP entries have been cleared.</div>';
-      });
-    </script>
-  </body>
+    </section>
+
+    <section class="table-section">
+
+        <table id="guestTable">
+
+            <thead>
+
+                <tr>
+                    <th>Name</th>
+                    <th>Attendance</th>
+                    <th>Guests</th>
+                    <th>Message</th>
+                    <th>Time</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+</div>
+
+<script src="admin.js"></script>
+
+<div id="loadingOverlay" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,.7);
+justify-content:center;
+align-items:center;
+font-size:24px;
+z-index:9999;">
+Loading...
+</div>
+
+</body>
 </html>
