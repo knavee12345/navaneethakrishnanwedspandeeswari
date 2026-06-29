@@ -344,44 +344,46 @@ function setupInvitationCover() {
   bgMusic.volume = 1;
   bgMusic.muted = false;
 
-  function openInvitation(event) {
+ function openInvitation(event) {
+
     if (event) {
-      event.preventDefault();
-      event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
     }
 
-    bgMusic.play()
-      .then(() => {
-        console.log("Music started");
+    // Open invitation immediately
+    cover.classList.add("is-opening");
+    button.disabled = false;
 
-        cover.classList.add("is-opening");
-        button.disabled = false;
+    setTimeout(() => {
 
-        setTimeout(() => {
-          document.body.classList.add("invitation-opened");
-          cover.setAttribute("aria-hidden", "true");
+        document.body.classList.add("invitation-opened");
 
-          window.scrollTo({
+        cover.setAttribute("aria-hidden", "true");
+
+        cover.classList.remove("is-opening");
+
+        window.scrollTo({
             top: 0,
             left: 0,
             behavior: "smooth"
-          });
+        });
 
-          cover.classList.remove("is-opening");
-        }, 820);
-      })
-      .catch((err) => {
-        console.error("Audio failed:", err);
+    }, 820);
 
-        cover.classList.add("is-opening");
+    // Play music separately
+    bgMusic.muted = false;
+    bgMusic.volume = 1;
 
-        setTimeout(() => {
-          document.body.classList.add("invitation-opened");
-          cover.setAttribute("aria-hidden", "true");
-          cover.classList.remove("is-opening");
-        }, 820);
-      });
-  }
+    bgMusic.play()
+        .then(() => {
+            console.log("Music started");
+        })
+        .catch((err) => {
+            console.log("Music couldn't start:", err);
+        });
+
+}
 
   button.addEventListener("touchend", openInvitation);
   button.addEventListener("click", openInvitation);
